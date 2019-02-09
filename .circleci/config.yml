@@ -20,7 +20,7 @@ jobs:
           command: yarn test && ls && pwd
       - persist_to_workspace:
           root: ~/server
-          path:
+          paths:
             - src/*
           
   # deploy_to_staging:
