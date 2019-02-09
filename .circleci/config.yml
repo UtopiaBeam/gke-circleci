@@ -23,7 +23,7 @@ jobs:
       - persist_to_workspace:
           root: ~/server
           path:
-            - src/*
+            - ./src/*
           
   # deploy_to_staging:
   #   docker:
