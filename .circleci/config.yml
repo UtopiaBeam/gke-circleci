@@ -23,25 +23,25 @@ jobs:
           paths:
             - src/*
           
-  # deploy_to_staging:
-  #   docker:
-  #     - image: google/cloud-sdk
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Setup Google Cloud SDK
-  #         command: |
-  #           docker build \
-  #             -t ${PROJECT_NAME} .
-  #           docker tag ${PROJECT_NAME} eu.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}:${CIRCLE_SHA1}
-  #           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io
-  #           docker push eu.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}:${CIRCLE_SHA1}
-  #     - run:
-  #         name: Deploy to k8s
-  #         command: |
-  #           envsubst < ${HOME}/project/k8s.yml > ${HOME}/patched_k8s.yml
-  #           kubectl apply -f ${HOME}/patched_k8s.yml
-  #           kubectl rollout status deployment/${PROJECT_NAME}
+  deploy_to_staging:
+    attach_workspace:
+      - at: src/
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - checkout
+      - run:
+          name: Setup Google Cloud SDK
+          command: |
+            echo $GCLOUD_SERVICE_KEY | sudo gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+      - run:
+          name: Deploy to k8s
+          command: |
+            envsubst < ${HOME}/project/k8s.yml > ${HOME}/patched_k8s.yml
+            kubectl apply -f ${HOME}/patched_k8s.yml
+            kubectl rollout status deployment/${PROJECT_NAME}
 
 workflows:
   version: 2
