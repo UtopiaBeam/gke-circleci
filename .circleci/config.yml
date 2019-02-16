@@ -37,14 +37,10 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTER_ZONE}
       - run:
-          name: Create deployment
+          name: Connect to cluster
           command: |
-            kubectl version
-            # kubectl create -f k8s.deployment.yml
-      # - run:
-      #     name: Create service
-      #     command: |
-      #       kubectl create -f k8s.service.yml
+            gcloud container clusters get-credentials ${GOOGLE_CLUSTER_NAME} \
+                --zone asia-southeast1-a --project ${PROJECT_NAME}
 
 workflows:
   version: 2
