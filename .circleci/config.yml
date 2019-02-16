@@ -36,14 +36,10 @@ jobs:
             echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTER_ZONE}
-      - run:
-          name: Create cluster
-          command: |
-            gcloud container clusters create ${GOOGLE_CLUSTER_NAME} --num-nodes=1
-      - run:
-          name: View kubeconfig
-          command: |
-            kubectl config view
+      # - run:
+      #     name: Create cluster
+      #     command: |
+      #       gcloud container clusters create ${GOOGLE_CLUSTER_NAME} --num-nodes=1
       - run:
           name: Connect to cluster
           command: |
@@ -52,6 +48,10 @@ jobs:
           name: Create deployment
           command: |
             kubectl create -f k8s.deployment.yml
+      # - run:
+      #     name: Create service
+      #     command: |
+      #       kubectl create -f k8s.service.yml
 
 workflows:
   version: 2
