@@ -37,11 +37,17 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTER_ZONE}
       - run:
-          name: Connect to cluster
+          name: Create cluster
+          command: |
+            gcloud container clusters create ${GOOGLE_CLUSTER_NAME}
+      - run:
+          name: View kubeconfig
           command: |
             kubectl config view
-            gcloud container clusters get-credentials ${GOOGLE_CLUSTER_NAME} \
-              --zone asia-southeast1-a --project ${PROJECT_NAME}
+      - run:
+          name: Connect to cluster
+          command: |
+            gcloud container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
 
 workflows:
   version: 2
