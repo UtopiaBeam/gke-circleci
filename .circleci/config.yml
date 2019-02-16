@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Connect to cluster
           command: |
-            kubectl config current-context
+            kubectl config view
             gcloud container clusters get-credentials ${GOOGLE_CLUSTER_NAME} \
               --zone asia-southeast1-a --project ${PROJECT_NAME}
 
