@@ -39,7 +39,8 @@ jobs:
       - run:
           name: Create deployment
           command: |
-            kubectl create -f k8s.deployment.yml
+            kubectl version
+            # kubectl create -f k8s.deployment.yml
       # - run:
       #     name: Create service
       #     command: |
