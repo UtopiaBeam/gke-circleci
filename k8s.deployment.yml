@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-express-deployment
+  name: gke-circleci
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-express
+      app: gke-circleci
   template:
     metadata:
       labels:
-        app: my-express
+        app: gke-circleci
     spec:
       containers:
         - image: node:10-alpine
