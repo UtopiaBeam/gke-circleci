@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-express-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-express
+    spec:
+      containers:
+        - image: node:10-alpine
+      

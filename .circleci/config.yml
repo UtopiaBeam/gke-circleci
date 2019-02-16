@@ -17,7 +17,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Run tests
-          command: yarn test && ls && pwd
+          command: yarn test
       - persist_to_workspace:
           root: ~/server
           paths:
@@ -37,11 +37,9 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTER_ZONE}
       - run:
-          name: Deploy to k8s
+          name: Deploy to GKE
           command: |
-            envsubst < ${HOME}/project/k8s.yml > ${HOME}/patched_k8s.yml
-            kubectl apply -f ${HOME}/patched_k8s.yml
-            kubectl rollout status deployment/${PROJECT_NAME}
+            kubectl create -f k8s.deployment.yml
 
 workflows:
   version: 2
