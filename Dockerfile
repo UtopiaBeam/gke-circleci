@@ -1,7 +1,7 @@
-FROM node:10
+FROM node:10-alpine
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN yarn
 COPY . .
-EXPOSE 3000
-CMD ["yarn", "start"]
+EXPOSE 8080
+CMD ["yarn", "start:prod"]
