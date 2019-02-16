@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Create cluster
           command: |
-            gcloud container create cluster gke-circleci
+            gcloud container clusters create gke-circleci
       - run:
           name: Create deployment
           command: |
