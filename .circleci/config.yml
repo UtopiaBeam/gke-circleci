@@ -39,8 +39,6 @@ jobs:
       - run:
           name: Deploy to GKE
           command: |
-            apt install lsof
-            lsof -i :8080
             kubectl create -f k8s.deployment.yml
 
 workflows:

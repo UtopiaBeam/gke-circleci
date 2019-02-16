@@ -15,3 +15,5 @@ spec:
       containers:
         - image: node:10-alpine
           name: my-express
+          ports:
+            - containerPort: 8080
