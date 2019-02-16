@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Deploy to GKE
           command: |
-            kubectl apply -f k8s.deployment.yml
+            kubectl create -f k8s.deployment.yml
 
 workflows:
   version: 2

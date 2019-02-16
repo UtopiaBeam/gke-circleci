@@ -4,6 +4,9 @@ metadata:
   name: my-express-deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: my-express
   template:
     metadata:
       labels:
