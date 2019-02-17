@@ -52,6 +52,7 @@ jobs:
           name: Get pods
           command: |
             kubectl get pods
+            kubectl describe pods
 
 workflows:
   version: 2
