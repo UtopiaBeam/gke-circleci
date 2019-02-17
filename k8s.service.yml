@@ -8,3 +8,5 @@ spec:
   type: NodePort
   ports:
     - name: gke-circleci-port
+      port: 8080
+      targetPort: 8080
