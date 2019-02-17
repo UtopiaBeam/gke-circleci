@@ -48,6 +48,10 @@ jobs:
           name: Create service
           command: |
             kubectl create --dry-run=true -o yaml -f k8s.service.yml | kubectl apply -f -
+      - run:
+          name: Get pods
+          command: |
+            kubectl get pods
 
 workflows:
   version: 2
