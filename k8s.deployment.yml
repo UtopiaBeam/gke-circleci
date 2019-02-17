@@ -16,5 +16,5 @@ spec:
         - image: node:10-alpine
           name: gke-circleci
           tty: true
-          ports
+          ports:
             - containerPort: 80
