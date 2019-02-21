@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Create deployment
           command: |
-            kubectl create --dry-run=true -o yaml -f k8s.deployment.yml | kubectl apply -f -
+            kubectl create --dry-run=true -o yaml -f k8s-deployment.yml | kubectl apply -f -
       - run:
           name: Get deploy
           command: |
@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Create service
           command: |
-            kubectl create --dry-run=true -o yaml -f k8s.service.yml | kubectl apply -f -
+            kubectl create --dry-run=true -o yaml -f k8s-service.yml | kubectl apply -f -
       - run:
           name: Get service
           command: |
