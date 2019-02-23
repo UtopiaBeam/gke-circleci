@@ -25,10 +25,11 @@ jobs:
 
   push_to_gcr:
     working_directory: ~/project
-    attach_workspace:
-      - at: src/
-    docker:
-      - image: google/cloud-sdk
+    # attach_workspace:
+    #   - at: src/
+    # docker:
+    #   - image: google/cloud-sdk
+    machine: true
     steps:
       - checkout
       - run:
