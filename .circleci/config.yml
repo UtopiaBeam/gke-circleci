@@ -1,7 +1,7 @@
 version: 2.0
 jobs:
   build_and_test:
-    working_directory: ~/server
+    working_directory: ~/project
     docker:
       - image: circleci/node:10
     steps:
@@ -24,6 +24,7 @@ jobs:
             - src/*
 
   push_to_gcr:
+    working_directory: ~/project
     attach_workspace:
       - at: src/
     docker:
