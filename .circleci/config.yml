@@ -38,18 +38,11 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTER_ZONE}
       - run:
-          name: Authenticate docker cli
-          command: gcloud auth configure-docker
+          name: Build image
+          command: gcloud builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci .
       - run:
-          name: Build docker image
-          command: sudo docker build -t gke-circleci .
-      - run:
-          name: Tag the image with registry name
-          command: sudo docker tag gke-circleci gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
-      - run:
-          name: Push the image
-          command: sudo docker push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
-
+          name: Push image
+          command: gcloud docker --push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci
 
   deploy_to_k8s:
     docker:
