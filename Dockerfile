@@ -1,5 +1,5 @@
 FROM node:10-alpine
-WORKDIR /src
+WORKDIR /usr/app/src
 COPY package*.json ./
 RUN yarn
 COPY . .
