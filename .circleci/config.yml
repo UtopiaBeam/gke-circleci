@@ -42,13 +42,13 @@ jobs:
           command: gcloud auth configure-docker
       - run:
           name: Build docker image
-          command: gcloud docker build -t gke-circleci .
+          command: sudo docker build -t gke-circleci .
       - run:
           name: Tag the image with registry name
-          command: gcloud docker tag gke-circleci gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
+          command: sudo docker tag gke-circleci gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
       - run:
           name: Push the image
-          command: gcloud docker push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
+          command: sudo docker push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
 
 
   deploy_to_k8s:
