@@ -38,6 +38,9 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTER_ZONE}
       - run:
+          name: Authenticate docker cli
+          command: gcloud auth configure-docker
+      - run:
           name: Build image
           command: gcloud builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci .
       - run:
