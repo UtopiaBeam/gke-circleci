@@ -25,12 +25,11 @@ jobs:
 
   push_to_gcr:
     working_directory: ~/project
-    # attach_workspace:
-    #   - at: src/
+    attach_workspace:
+      - at: src/
     # docker:
     #   - image: google/cloud-sdk
-    machine:
-      image: google/cloud-sdk
+    machine: true
     steps:
       - checkout
       - run:
@@ -40,11 +39,8 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTER_ZONE}
       - run:
-          name: Authenticate docker cli
-          command: gcloud auth configure-docker
-      - run:
           name: Build docker image
-          command: docker build -t gke-circleci .
+          command: docker build --rm=false -t gke-circleci .
       - run:
           name: Tag the image with registry name
           command: docker tag gke-circleci gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
