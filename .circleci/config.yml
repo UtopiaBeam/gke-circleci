@@ -30,6 +30,12 @@ jobs:
       - image: google/cloud-sdk
     steps:
       - run:
+          name: Log path
+          command: pwd
+      - run:
+          name: ls
+          command: ls
+      - run:
           name: Build docker image
           command: docker build -t gke-circleci .
       - run:
