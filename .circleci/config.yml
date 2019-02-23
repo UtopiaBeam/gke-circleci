@@ -32,18 +32,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Log path
-          command: pwd
-      - run:
-          name: ls
-          command: ls
-      - run:
-          name: Build docker image
-          command: docker build -t gke-circleci .
-      - run:
-          name: Test run
-          command: docker run -d gke-circleci
-      - run:
           name: Setup Google Cloud SDK
           command: |
             echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
@@ -52,6 +40,9 @@ jobs:
       - run:
           name: Authenticate docker cli
           command: gcloud auth configure-docker
+      - run:
+          name: Build docker image
+          command: docker build -t gke-circleci .
       - run:
           name: Tag the image with registry name
           command: docker tag gke-circleci gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
