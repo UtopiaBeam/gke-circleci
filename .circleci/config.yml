@@ -27,9 +27,10 @@ jobs:
     working_directory: ~/project
     # attach_workspace:
     #   - at: src/
+    # docker:
+    #   - image: google/cloud-sdk
     machine:
-      - image: google/cloud-sdk
-    # machine: true
+      image: google/cloud-sdk
     steps:
       - checkout
       - run:
