@@ -13,6 +13,6 @@ spec:
         app: gke-circleci
     spec:
       containers:
-        - image: node:10-alpine
+        - image: gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
           name: gke-circleci
           tty: true
