@@ -30,6 +30,7 @@ jobs:
     docker:
       - image: google/cloud-sdk
     steps:
+      - checkout
       - run:
           name: Log path
           command: pwd
