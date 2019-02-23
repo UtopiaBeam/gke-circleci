@@ -41,11 +41,15 @@ jobs:
           name: Authenticate docker cli
           command: gcloud auth configure-docker
       - run:
-          name: Build image
-          command: gcloud builds submit --tag gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci .
+          name: Build docker image
+          command: docker build -t gke-circleci .
       - run:
-          name: Push image
-          command: gcloud docker --push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci
+          name: Tag the image with registry name
+          command: docker tag gke-circleci gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
+      - run:
+          name: Push the image
+          command: gcloud docker -- push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
+
 
   deploy_to_k8s:
     docker:
