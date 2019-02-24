@@ -21,17 +21,14 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - src/*
+            - .
 
   push_to_gcr:
     working_directory: ~/project
-    attach_workspace:
-      - at: src/
-    # docker:
-    #   - image: google/cloud-sdk
     machine: true
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Setup Google Cloud SDK
           command: |
@@ -46,14 +43,15 @@ jobs:
           command: docker tag gke-circleci gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
       - run:
           name: Push the image
-          command: gcloud docker -- push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
+          command: docker push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
 
 
   deploy_to_k8s:
     docker:
       - image: google/cloud-sdk
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Setup Google Cloud SDK
           command: |
@@ -67,14 +65,8 @@ jobs:
           name: Create deployment
           command: kubectl create --dry-run=true -o yaml -f k8s-deployment.yml | kubectl apply -f -
       - run:
-          name: Get deploy
-          command: kubectl get deploy
-      - run:
           name: Create service
           command: kubectl create --dry-run=true -o yaml -f k8s-service.yml | kubectl apply -f -
-      - run:
-          name: Get service
-          command: kubectl get service
 
 workflows:
   version: 2
