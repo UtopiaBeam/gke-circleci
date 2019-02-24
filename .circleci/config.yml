@@ -43,7 +43,7 @@ jobs:
           command: docker tag gke-circleci gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
       - run:
           name: Push the image
-          command: docker push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
+          command: gcloud docker -- push gcr.io/${GOOGLE_PROJECT_ID}/gke-circleci:v1.0
 
 
   deploy_to_k8s:

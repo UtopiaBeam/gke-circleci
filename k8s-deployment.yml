@@ -16,4 +16,3 @@ spec:
         - image: gcr.io/stupidgke/gke-circleci:v1.0
           name: gke-circleci
           imagePullPolicy: Always
-          tty: true
